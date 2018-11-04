@@ -111,8 +111,8 @@ namespace SportsStore.UnitTests
             // Arrange - create the mock repository
             Mock<IProductRepository> mock = new Mock<IProductRepository>();
             mock.Setup(m => m.Products).Returns(new Product[] {
-                                                +new Product {ProductID = 1, Name = "P1", Category = "Apples"},
-                                                +}.AsQueryable());
+                                                new Product {ProductID = 1, Name = "P1", Category = "Apples"},
+                                                }.AsQueryable());
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
