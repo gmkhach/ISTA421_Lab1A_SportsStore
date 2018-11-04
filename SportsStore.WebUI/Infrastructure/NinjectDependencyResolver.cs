@@ -30,11 +30,10 @@ namespace SportsStore.WebUI.Infrastructure
             kernel.Bind<IProductRepository>().To<EFProductRepository>();
             EmailSettings emailSettings = new EmailSettings
             {
-                WriteAsFile = bool.Parse(ConfigurationManager
-            .AppSettings["Email.WriteAsFile"] ?? "false")
+                WriteAsFile = bool.Parse(ConfigurationManager.AppSettings["Email.WriteAsFile"] ?? "false")
             };
-            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>()
-            .WithConstructorArgument("settings", emailSettings);
+
+            kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
         }
     }
 }
