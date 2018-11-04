@@ -109,16 +109,14 @@ namespace SportsStore.UnitTests
         public void Can_Add_To_Cart()
         {
             // Arrange - create the mock repository
-            Mock<IProductRepository> mockPR = new Mock<IProductRepository>();
-            Mock<IOrderProcessor> mockOP = new Mock<IOrderProcessor>();
-
-            mockPR.Setup(m => m.Products).Returns(new Product[] {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] {
                                                 new Product {ProductID = 1, Name = "P1", Category = "Apples"},
                                                 }.AsQueryable());
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(null, mockOP.Object);
+            CartController target = new CartController(mock.Object, null);
             // Act - add a product to the cart
             target.AddToCart(cart, 1, null);
             // Assert
@@ -130,15 +128,14 @@ namespace SportsStore.UnitTests
         public void Adding_Product_To_Cart_Goes_To_Cart_Screen()
         {
             // Arrange - create the mock repository
-            Mock<IProductRepository> mockPR = new Mock<IProductRepository>();
-            Mock<IOrderProcessor> mockOP = new Mock<IOrderProcessor>();
-            mockPR.Setup(m => m.Products).Returns(new Product[] {
+            Mock<IProductRepository> mock = new Mock<IProductRepository>();
+            mock.Setup(m => m.Products).Returns(new Product[] {
                                                 new Product {ProductID = 1, Name = "P1", Category = "Apples"},
                                                 }.AsQueryable());
             // Arrange - create a Cart
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(null, mockOP.Object);
+            CartController target = new CartController(mock.Object, null);
             // Act - add a product to the cart
             RedirectToRouteResult result = target.AddToCart(cart, 2, "myUrl");
             // Assert
@@ -150,10 +147,9 @@ namespace SportsStore.UnitTests
         public void Can_View_Cart_Contents()
         {
             // Arrange - create a Cart
-            Mock<IOrderProcessor> mock = new Mock<IOrderProcessor>();
             Cart cart = new Cart();
             // Arrange - create the controller
-            CartController target = new CartController(null, mock.Object);
+            CartController target = new CartController(null, null);
             // Act - call the Index action method
             CartIndexViewModel result
             = (CartIndexViewModel)target.Index(cart, "myUrl").ViewData.Model;
