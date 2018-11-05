@@ -3,7 +3,6 @@ using System.Net.Mail;
 using System.Text;
 using SportsStore.Domain.Abstract;
 using SportsStore.Domain.Entities;
-
 namespace SportsStore.Domain.Concrete
 {
     public class EmailSettings
@@ -55,7 +54,6 @@ namespace SportsStore.Domain.Concrete
                     line.Product.Name,
                     subtotal);
                 }
-
                 body.AppendFormat("Total order value: {0:c}", cart.ComputeTotalValue())
                 .AppendLine("---")
                 .AppendLine("Ship to:")
@@ -69,19 +67,18 @@ namespace SportsStore.Domain.Concrete
                 .AppendLine(shippingInfo.Zip)
                 .AppendLine("---")
                 .AppendFormat("Gift wrap: {0}",
-                    shippingInfo.GiftWrap ? "Yes" : "No");
+                shippingInfo.GiftWrap ? "Yes" : "No");
 
                 MailMessage mailMessage = new MailMessage(
-                            emailSettings.MailFromAddress, // From
-                            emailSettings.MailToAddress, // To
-                            "New order submitted!", // Subject
-                            body.ToString()); // Body
+                emailSettings.MailFromAddress, // From
+                emailSettings.MailToAddress, // To
+                "New order submitted!", // Subject
+                body.ToString()); // Body
 
                 if (emailSettings.WriteAsFile)
                 {
                     mailMessage.BodyEncoding = Encoding.ASCII;
                 }
-
                 smtpClient.Send(mailMessage);
             }
         }

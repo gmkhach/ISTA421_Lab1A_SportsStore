@@ -10,7 +10,8 @@ namespace SportsStore.WebUI.Infrastructure.Binders
     public class CartModelBinder : IModelBinder
     {
         private const string sessionKey = "Cart";
-        public object BindModel(ControllerContext controllerContext, ModelBindingContext bindingContext)
+        public object BindModel(ControllerContext controllerContext,
+        ModelBindingContext bindingContext)
         {
             // get the Cart from the session
             Cart cart = null;
@@ -18,7 +19,6 @@ namespace SportsStore.WebUI.Infrastructure.Binders
             {
                 cart = (Cart)controllerContext.HttpContext.Session[sessionKey];
             }
-
             // create the Cart if there wasn't one in the session data
             if (cart == null)
             {
@@ -28,7 +28,6 @@ namespace SportsStore.WebUI.Infrastructure.Binders
                     controllerContext.HttpContext.Session[sessionKey] = cart;
                 }
             }
-
             // return the cart
             return cart;
         }
